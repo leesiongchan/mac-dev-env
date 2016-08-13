@@ -382,8 +382,8 @@ pretty_print "Installing ruby-build to install Rubies ..."
 
 # OpenSSL linking
 pretty_print "Installing and linking OpenSSL..."
-brew install openssl
-brew link openssl --force
+  brew install openssl
+  brew link openssl --force
 
 # Install ruby latest version
 ruby_version="$(curl -sSL https://raw.githubusercontent.com/IcaliaLabs/kaishi/master/latest_ruby)"
@@ -409,7 +409,7 @@ pretty_print "Setup gemrc for default options"
   fi
 
 # Bundler installation
-pretty_print "Installing bundler..."
+pretty_print "Installing Bundler..."
   gem install bundler
 
 pretty_print "Optimizing Bundler..."
@@ -439,11 +439,14 @@ pretty_print "Optimizing Bundler..."
   # Installing POW
   # curl get.pow.cx | sh
 
-pretty_print "Installing nvm..."
+pretty_print "Installing Watchman..."
+  brew install watchman
+
+pretty_print "Installing Node Package manager..."
   brew install nvm
   echo "source $(brew --prefix nvm)/nvm.sh" >> ~/.zshrc
 
-pretty_print "Installing Node.js"
+pretty_print "Installing Node.js..."
   nvm install stable
 
 # pretty_print "Installing Grunt..."
