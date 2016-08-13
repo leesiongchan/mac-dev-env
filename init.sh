@@ -11,7 +11,7 @@ checkFor() {
   type "$1" &> /dev/null ;
 }
 
-pretty_print "setting up your dev environment like a boss..."
+pretty_print "Setting up your dev environment like a boss..."
 
 # Set continue to false by default
 CONTINUE=false
@@ -61,11 +61,9 @@ case $response in
   *) break;;
 esac
 
-
 echo ""
 echo "Check for software updates daily, not just once per week"
 defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
-
 
 
 ################################################################################
@@ -131,18 +129,15 @@ case $response in
   *) break;;
 esac
 
-
 echo ""
 echo "Allowing text selection in Quick Look/Preview in Finder by default"
 defaults write com.apple.finder QLEnableTextSelection -bool true
-
 
 echo ""
 echo "Enabling snap-to-grid for icons on the desktop and in other icon views"
 /usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
 /usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
-
 
 echo ""
 echo "Enabling the Develop menu and the Web Inspector in Safari"
@@ -178,8 +173,8 @@ echo "\nSet a shorter Delay until key repeat"
 defaults write NSGlobalDomain InitialKeyRepeat -int 12
 
 # Show the ~/Library folder
-echo "\nShow the ~/Library folder"
-chflags nohidden ~/Library
+# echo "\nShow the ~/Library folder"
+# chflags nohidden ~/Library
 
 
 ###############################################################################
@@ -190,6 +185,7 @@ echo ""
 echo "Setting email addresses to copy as 'foo@example.com' instead of 'Foo Bar <foo@example.com>' in Mail.app"
 defaults write com.apple.mail AddressesIncludeNameOnPasteboard -bool false
 
+
 ###############################################################################
 # Terminal
 ###############################################################################
@@ -199,6 +195,7 @@ echo "Enabling UTF-8 ONLY in Terminal.app and setting the Pro theme by default"
 defaults write com.apple.terminal StringEncodings -array 4
 defaults write com.apple.Terminal "Default Window Settings" -string "Pro"
 defaults write com.apple.Terminal "Startup Window Settings" -string "Pro"
+
 
 ###############################################################################
 # Time Machine
@@ -214,59 +211,13 @@ case $response in
   *) break;;
 esac
 
-###############################################################################
-# Transmission.app                                                            #
-###############################################################################
-
-echo ""
-echo "Do you use Transmission for torrenting? (y/n)"
-read -r response
-case $response in
-  [yY])
-    echo ""
-    echo "Use `~/Downloads/Incomplete` to store incomplete downloads"
-    defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
-    mkdir -p ~/Downloads/Incomplete
-    defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Downloads/Incomplete"
-
-    echo ""
-    echo "Don't prompt for confirmation before downloading"
-    defaults write org.m0k.transmission DownloadAsk -bool false
-
-    echo ""
-    echo "Trash original torrent files"
-    defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
-
-    echo ""
-    echo "Hide the donate message"
-    defaults write org.m0k.transmission WarningDonate -bool false
-
-    echo ""
-    echo "Hide the legal disclaimer"
-    defaults write org.m0k.transmission WarningLegal -bool false
-    break;;
-  *) break;;
-esac
 
 ###############################################################################
-# Sublime Text
+# Development Tools
 ###############################################################################
-
-echo ""
-echo "Do you use Sublime Text 3 as your editor of choice, and is it installed? (y/n)"
-read -r response
-case $response in
-  [yY])
-    # Link subl command to sublime text 
-    echo ""
-    echo "Linking Sublime Text for command line usage as subl"
-    ln -s "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl" /usr/local/bin/subl
-    break;;
-  *) break;;
-esac
 
 # xcode dev tools
-  pretty_print "Installing xcode dev tools..."
+pretty_print "Installing xcode dev tools..."
   if [ "$(checkFor pkgutil --pkg-info=com.apple.pkg.CLTools_Executables)" ]; then
     printf 'Command-Line Tools is not installed.  Installing..' ;
     xcode-select --install
@@ -274,12 +225,12 @@ esac
     osascript -e 'tell application "System Events"' -e 'tell process "Install Command Line Developer Tools"' -e 'keystroke return' -e 'click button "Agree" of window "License Agreement"' -e 'end tell' -e 'end tell'
   fi
 
-## xquartz
-  pretty_print "Installing xquartz..."
-  curl http://xquartz-dl.macosforge.org/SL/XQuartz-2.7.7.dmg -o /tmp/XQuartz.dmg
-  open /tmp/XQuartz.dmg
-  sudo installer -package /Volumes/XQuartz-2.7.7/XQuartz.pkg -target /
-  hdiutil detach /Volumes/XQuartz-2.7.7
+# xquartz
+# pretty_print "Installing xquartz..."
+#   curl http://xquartz-dl.macosforge.org/SL/XQuartz-2.7.7.dmg -o /tmp/XQuartz.dmg
+#   open /tmp/XQuartz.dmg
+#   sudo installer -package /Volumes/XQuartz-2.7.7/XQuartz.pkg -target /
+#   hdiutil detach /Volumes/XQuartz-2.7.7
 
 # Oh my zsh installation
 pretty_print "Installing oh-my-zsh..."
@@ -292,7 +243,6 @@ if [[ -f /etc/zshenv ]]; then
 fi
 
 # Homebrew installation
-
 if ! command -v brew &>/dev/null; then
   pretty_print "Installing Homebrew, an OSX package manager, follow the instructions..."
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -308,9 +258,8 @@ else
 fi
 
 # Homebrew OSX libraries
-
 pretty_print "Updating brew formulas"
-  	brew update
+  brew update
 
 pretty_print "Installing GNU core utilities..."
 	brew install coreutils
@@ -335,80 +284,81 @@ pretty_print "Setting up .gitconfig... (y/n)"
 read -r response
 case $response in
   [yY])
-      echo "What name would you like use?"
-      read NAME
-      # $NAME for usage
-      git config --global user.name $NAME
+    echo "What name would you like use?"
+    read NAME
+    # $NAME for usage
+    git config --global user.name $NAME
 
-      echo "What email would you like use?"
-      read EMAIL
-      # $EMAIL for usage
-      git config --global user.email $EMAIL
+    echo "What email would you like use?"
+    read EMAIL
+    # $EMAIL for usage
+    git config --global user.email $EMAIL
 
-      # a global git ignore file:
-      git config --global core.excludesfile '~/.gitignore'
-      echo '.DS_Store' >> ~/.gitignore
+    # a global git ignore file:
+    git config --global core.excludesfile '~/.gitignore'
+    echo '.DS_Store' >> ~/.gitignore
 
-      # use keychain for storing passwords
-      git config --global credential.helper osxkeychain
+    # use keychain for storing passwords
+    git config --global credential.helper osxkeychain
 
-      # you might not see colors without this
-      git config --global color.ui true
+    # you might not see colors without this
+    git config --global color.ui true
 
-      echo "more useful settings can be found here: https://github.com/glebm/dotfiles/blob/master/.gitconfig"
+    echo "more useful settings can be found here: https://github.com/glebm/dotfiles/blob/master/.gitconfig"
 
-      # ssh keys - probably can skip this since github app auto adds it for you which is nice
-      ls -al ~/.ssh # Lists the files in your .ssh directory, if they exist
-      ssh-keygen -t rsa -C $EMAIL # Creates a new ssh key, using the provided email as a label
-      eval "$(ssh-agent -s)" # start the ssh-agent in the background
-      ssh-add ~/.ssh/id_rsa
-      pbcopy < ~/.ssh/id_rsa.pub # Copies the contents of the id_rsa.pub file to your clipboard to paste in github or w/e
+    # ssh keys - probably can skip this since github app auto adds it for you which is nice
+    # ls -al ~/.ssh # Lists the files in your .ssh directory, if they exist
+    # ssh-keygen -t rsa -C $EMAIL # Creates a new ssh key, using the provided email as a label
+    # eval "$(ssh-agent -s)" # start the ssh-agent in the background
+    # ssh-add ~/.ssh/id_rsa
+    # pbcopy < ~/.ssh/id_rsa.pub # Copies the contents of the id_rsa.pub file to your clipboard to paste in github or w/e
 
-      break;;
+    break;;
   *) break;;
 esac
 
 # Image magick installation
-pretty_print "Installing image magick for image processing"
-  brew install imagemagick
+# pretty_print "Installing image magick for image processing"
+#   brew install imagemagick
 
 # php
-pretty_print "Installing php 5.6..."
-  brew tap homebrew/versions
-  brew tap homebrew/homebrew-php
-  brew install php56
-  echo 'export PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"' >> ~/.zshrc && . ~/.zshrc
-pretty_print "Setup auto start"
-  mkdir -p ~/Library/LaunchAgents
-  cp /usr/local/Cellar/php56/5.6.2/homebrew.mxcl.php56.plist ~/Library/LaunchAgents/
+# pretty_print "Installing php 5.6..."
+#   brew tap homebrew/versions
+#   brew tap homebrew/homebrew-php
+#   brew install php56
+#   echo 'export PATH="$(brew --prefix homebrew/php/php56)/bin:$PATH"' >> ~/.zshrc && . ~/.zshrc
+
+# pretty_print "Setup auto start"
+#   mkdir -p ~/Library/LaunchAgents
+#   cp /usr/local/Cellar/php56/5.6.2/homebrew.mxcl.php56.plist ~/Library/LaunchAgents/
 
 # mysql/mariadb
-pretty_print "Installing mysql..."
-  brew install mysql
-  brew unlink mysql
-pretty_print "Installing mariadb..."
-  brew install mariadb # Install MariaDB
-  # mysql setup auto start and start the database
-  ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
-  launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
-  # Run the Database Installer
-  unset TMPDIR
-  cd /usr/local/Cellar/mariadb/{VERSION}
-  mysql_install_db
-  mysql.server start # Start MariaDB
-  mysql_secure_installation # Secure the Installation
+# pretty_print "Installing mysql..."
+#   brew install mysql
+#   brew unlink mysql
+# pretty_print "Installing mariadb..."
+#   brew install mariadb # Install MariaDB
+#   # mysql setup auto start and start the database
+#   ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+#   launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+#   # Run the Database Installer
+#   unset TMPDIR
+#   cd /usr/local/Cellar/mariadb/{VERSION}
+#   mysql_install_db
+#   mysql.server start # Start MariaDB
+#   mysql_secure_installation # Secure the Installation
 
 # MongoDB installation
-pretty_print "Installing MongoDB"
-  brew install mongo
+# pretty_print "Installing MongoDB"
+#   brew install mongo
 
 # Reddis installation
-pretty_print "Installing Reddis"
-  brew install redis
+# pretty_print "Installing Reddis"
+#   brew install redis
 
 # PostgreSQL installation
-pretty_print "Installing PostgreSQL"
-  brew install postgresql
+# pretty_print "Installing PostgreSQL"
+#   brew install postgresql
 
 # Rbenv installation
 pretty_print "Rbenv installation for managing your rubies"
@@ -421,7 +371,6 @@ if ! grep -qs "rbenv init" ~/.zshrc; then
   pretty_print "Enable shims and autocompletion ..."
     eval "$(rbenv init -)"
 fi
-
 
 export PATH="$HOME/.rbenv/bin:$PATH"
 
@@ -462,46 +411,50 @@ pretty_print "Setup gemrc for default options"
 # Bundler installation
 pretty_print "Installing bundler..."
   gem install bundler
-#
+
 pretty_print "Optimizing Bundler..."
   number_of_cores=$(sysctl -n hw.ncpu)
   bundle config --global jobs $((number_of_cores - 1))
 
-pretty_print "Installing Foreman..."
-  gem install foreman
+# pretty_print "Installing Foreman..."
+#   gem install foreman
 
-pretty_print "Installing Rails...finally!"
-  gem install rails
+# pretty_print "Installing Rails...finally!"
+#   gem install rails
 
-pretty_print "Installing mailcatcher gem...!"
-  gem install mailcatcher
+# pretty_print "Installing mailcatcher gem...!"
+#   gem install mailcatcher
 
-pretty_print "Installing the heroku toolbelt..."
-  brew install heroku-toolbelt
+# pretty_print "Installing the heroku toolbelt..."
+#   brew install heroku-toolbelt
 
-pretty_print "Installing custom Rails app generator from Icalia"
-  curl -L https://raw2.github.com/IcaliaLabs/railsAppCustomGenerator/master/install.sh | sh
+# pretty_print "Installing custom Rails app generator from Icalia"
+#   curl -L https://raw2.github.com/IcaliaLabs/railsAppCustomGenerator/master/install.sh | sh
 
-pretty_print "Installing pow to serve local rails apps like a superhero..."
+# pretty_print "Installing pow to serve local rails apps like a superhero..."
   # Making Pow and PHP work together nicely...
-  echo 'export POW_DST_PORT=88' >> ~/.powconfig
-  sudo curl -L https://gist.githubusercontent.com/soupmatt/1058580/raw/zzz_pow.conf -o /private/etc/apache2/other/zzz_pow.conf
-  sudo apachectl restart
+  # echo 'export POW_DST_PORT=88' >> ~/.powconfig
+  # sudo curl -L https://gist.githubusercontent.com/soupmatt/1058580/raw/zzz_pow.conf -o /private/etc/apache2/other/zzz_pow.conf
+  # sudo apachectl restart
   # Installing POW
-  curl get.pow.cx | sh
+  # curl get.pow.cx | sh
 
-pretty_print "Installing NodeJs..."
-  brew install node
+pretty_print "Installing nvm..."
+  brew install nvm
+  echo "source $(brew --prefix nvm)/nvm.sh" >> ~/.zshrc
 
-pretty_print "Installing Grunt..."
-  npm install -g grunt-cli
+pretty_print "Installing Node.js"
+  nvm install stable
 
-pretty_print "Installing Composer..."
-  brew update
-  brew install composer
+# pretty_print "Installing Grunt..."
+#   npm install -g grunt-cli
 
-pretty_print "Installing Bower..."
-  npm install -g bower
+# pretty_print "Installing Composer..."
+#   brew update
+#   brew install composer
+
+# pretty_print "Installing Bower..."
+#   npm install -g bower
 
 pretty_print "Installing Gulp..."
   npm install --global gulp
@@ -511,8 +464,8 @@ pretty_print "Installing cask to install apps"
 	brew install caskroom/cask/brew-cask
   brew tap caskroom/versions
 
-pretty_print "Installing launchrocket to manage your homebrew formulas like a champ!"
-	brew cask install launchrocket
+# pretty_print "Installing launchrocket to manage your homebrew formulas like a champ!"
+# 	brew cask install launchrocket
 
 pretty_print "Installing apps..."
   sh apps.sh
@@ -521,15 +474,15 @@ pretty_print "Installing fonts..."
   sh fonts.sh
 
 # install adove creative cloud app from cask install
-pretty_print "Adobe Creative Cloud - cask requires to run the installer again"
-  open /opt/homebrew-cask/Caskroom/adobe-creative-cloud/latest/Creative\ Cloud\ Installer.app
+# pretty_print "Adobe Creative Cloud - cask requires to run the installer again"
+#   open /opt/homebrew-cask/Caskroom/adobe-creative-cloud/latest/Creative\ Cloud\ Installer.app
 
 # when done with cask
 brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup
 
 # iterm - copy files into ~ dir
-pretty_print "Setup iterm..."
-  cp {.bash_profile,.bash_prompt,.aliases} ~
+# pretty_print "Setup iterm..."
+#   cp {.bash_profile,.bash_prompt,.aliases} ~
 
 # Install Mackup
 pretty_print "Installing Mackup..."
@@ -538,6 +491,44 @@ pretty_print "Installing Mackup..."
 # Launch it and back up your files
 pretty_print "Running Mackup Backup...required dropbox to be setup first. Run again with $mackup backup"
   mackup backup
+
+###############################################################################
+# Transmission.app                                                            #
+###############################################################################
+
+echo ""
+echo "Do you use Transmission for torrenting? (y/n)"
+read -r response
+case $response in
+  [yY])
+    echo ""
+    echo "Use `~/Downloads/Incomplete` to store incomplete downloads"
+    defaults write org.m0k.transmission UseIncompleteDownloadFolder -bool true
+    mkdir -p ~/Downloads/Incomplete
+    defaults write org.m0k.transmission IncompleteDownloadFolder -string "${HOME}/Downloads/Incomplete"
+
+    echo ""
+    echo "Auto watch for torrent files in `~/Downloads`"
+    defaults write org.m0k.transmission AutoImportDirectory ~/Downloads
+
+    echo ""
+    echo "Don't prompt for confirmation before downloading"
+    defaults write org.m0k.transmission DownloadAsk -bool false
+
+    echo ""
+    echo "Trash original torrent files"
+    defaults write org.m0k.transmission DeleteOriginalTorrent -bool true
+
+    echo ""
+    echo "Hide the donate message"
+    defaults write org.m0k.transmission WarningDonate -bool false
+
+    echo ""
+    echo "Hide the legal disclaimer"
+    defaults write org.m0k.transmission WarningLegal -bool false
+    break;;
+  *) break;;
+esac
 
 ###############################################################################
 # Kill affected applications

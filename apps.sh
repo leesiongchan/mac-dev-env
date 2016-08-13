@@ -1,63 +1,28 @@
 #!/bin/bash
 # Apps
 apps=(
-  adobe-creative-cloud
-  anvil
   appcleaner
-  asepsis
   atom
-  betterzipql
-  brackets
-  caffeine
-  carbon-copy-cloner
   cloudup
-  codekit
-  cyberduck
   dropbox
   droplr
   firefox
-  flash
-  fluid
-  flux
-  github-desktop
   githubpulse
   google-chrome
+  google-drive
   harvest
-  iterm2
-  keka
-  mailbox
-  miro
-  moom
-  mou
   namechanger
-  nvalt
-  openoffice
-  qlcolorcode
+  postico
   qlimagesize
-  qlmarkdown
-  qlprettypatch
-  qlstephen
-  quicklook-csv
-  quicklook-json
-  screenflick
-  sequel-pro
-  sketch
   skype
   slack
-  smcfancontrol
-  sourcetree
   spotify
-  sublime-text3
-  suspicious-package
+  sublime-text
   tomighty
   tower
   transmission
   transmit
-  unrarx
-  vagrant
-  virtualbox
   vlc
-  webpquicklook
 )
 
 # Install apps to /Applications
