@@ -4,6 +4,7 @@ apps=(
   appcleaner
   atom
   cloudup
+  docker
   dropbox
   droplr
   firefox
