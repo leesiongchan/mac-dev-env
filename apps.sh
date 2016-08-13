@@ -1,26 +1,19 @@
 #!/bin/bash
 # Apps
 apps=(
-  appcleaner
   atom
-  cloudup
   docker
   dropbox
-  droplr
   firefox
-  githubpulse
   google-chrome
   google-drive
-  harvest
   kaleidoscope
-  namechanger
   postico
   qlimagesize
   skype
   slack
   spotify
   sublime-text
-  tomighty
   tower
   transmission
   transmit
