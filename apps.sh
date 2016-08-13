@@ -12,6 +12,7 @@ apps=(
   google-chrome
   google-drive
   harvest
+  kaleidoscope
   namechanger
   postico
   qlimagesize
