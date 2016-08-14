@@ -361,24 +361,24 @@ esac
 #   brew install postgresql
 
 # Rbenv installation
-pretty_print "Rbenv installation for managing your rubies"
-  brew install rbenv
+# pretty_print "Rbenv installation for managing your rubies"
+#   brew install rbenv
 
-if ! grep -qs "rbenv init" ~/.zshrc; then
-  printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> ~/.zshrc
-  printf 'eval "$(rbenv init - --no-rehash)"\n' >> ~/.zshrc
+# if ! grep -qs "rbenv init" ~/.zshrc; then
+#   printf 'export PATH="$HOME/.rbenv/bin:$PATH"\n' >> ~/.zshrc
+#   printf 'eval "$(rbenv init - --no-rehash)"\n' >> ~/.zshrc
 
-  pretty_print "Enable shims and autocompletion ..."
-    eval "$(rbenv init -)"
-fi
+#   pretty_print "Enable shims and autocompletion ..."
+#     eval "$(rbenv init -)"
+# fi
 
-export PATH="$HOME/.rbenv/bin:$PATH"
+# export PATH="$HOME/.rbenv/bin:$PATH"
 
-pretty_print "Installing rbenv-gem-rehash, we don't want to rehash everytime we add a gem..."
-  brew install rbenv-gem-rehash
+# pretty_print "Installing rbenv-gem-rehash, we don't want to rehash everytime we add a gem..."
+#   brew install rbenv-gem-rehash
 
-pretty_print "Installing ruby-build to install Rubies ..."
-  brew install ruby-build
+# pretty_print "Installing ruby-build to install Rubies ..."
+#   brew install ruby-build
 
 # OpenSSL linking
 pretty_print "Installing and linking OpenSSL..."
@@ -386,35 +386,35 @@ pretty_print "Installing and linking OpenSSL..."
   brew link openssl --force
 
 # Install ruby latest version
-ruby_version="$(curl -sSL https://raw.githubusercontent.com/IcaliaLabs/kaishi/master/latest_ruby)"
+# ruby_version="$(curl -sSL https://raw.githubusercontent.com/IcaliaLabs/kaishi/master/latest_ruby)"
 
-pretty_print "Installing Ruby $ruby_version"
-  if [ "$ruby_version" = "2.1.1" ]; then
-    curl -fsSL https://gist.github.com/mislav/a18b9d7f0dc5b9efc162.txt | rbenv install --patch 2.1.1
-  else
-    rbenv install "$ruby_version"
-  fi
+# pretty_print "Installing Ruby $ruby_version"
+#   if [ "$ruby_version" = "2.1.1" ]; then
+#     curl -fsSL https://gist.github.com/mislav/a18b9d7f0dc5b9efc162.txt | rbenv install --patch 2.1.1
+#   else
+#     rbenv install "$ruby_version"
+#   fi
 
-  pretty_print "Set ruby version $ruby_version as the default"
+#   pretty_print "Set ruby version $ruby_version as the default"
 
-  rbenv global "$ruby_version"
-  rbenv rehash
+#   rbenv global "$ruby_version"
+#   rbenv rehash
 
-pretty_print "Updating gems..."
-  gem update --system
+# pretty_print "Updating gems..."
+#   gem update --system
 
-pretty_print "Setup gemrc for default options"
-  if [ ! -f ~/.gemrc ]; then
-    printf 'gem: --no-document' >> ~/.gemrc
-  fi
+# pretty_print "Setup gemrc for default options"
+#   if [ ! -f ~/.gemrc ]; then
+#     printf 'gem: --no-document' >> ~/.gemrc
+#   fi
 
 # Bundler installation
-pretty_print "Installing Bundler..."
-  gem install bundler
+# pretty_print "Installing Bundler..."
+#   gem install bundler
 
-pretty_print "Optimizing Bundler..."
-  number_of_cores=$(sysctl -n hw.ncpu)
-  bundle config --global jobs $((number_of_cores - 1))
+# pretty_print "Optimizing Bundler..."
+#   number_of_cores=$(sysctl -n hw.ncpu)
+#   bundle config --global jobs $((number_of_cores - 1))
 
 # pretty_print "Installing Foreman..."
 #   gem install foreman
@@ -442,12 +442,8 @@ pretty_print "Optimizing Bundler..."
 pretty_print "Installing Watchman..."
   brew install watchman
 
-pretty_print "Installing Node Package manager..."
-  brew install nvm
-  echo "source $(brew --prefix nvm)/nvm.sh" >> ~/.zshrc
-
-pretty_print "Installing Node.js..."
-  nvm install stable
+pretty_print "Installing Node Version Manager..."
+  curl -sL https://git.io/n-install | bash -s -- -q
 
 # pretty_print "Installing Grunt..."
 #   npm install -g grunt-cli
@@ -459,8 +455,6 @@ pretty_print "Installing Node.js..."
 # pretty_print "Installing Bower..."
 #   npm install -g bower
 
-pretty_print "Installing Gulp..."
-  npm install --global gulp
 
 # Install brew cask
 pretty_print "Installing cask to install apps"
@@ -480,6 +474,9 @@ pretty_print "Installing fonts..."
 # pretty_print "Adobe Creative Cloud - cask requires to run the installer again"
 #   open /opt/homebrew-cask/Caskroom/adobe-creative-cloud/latest/Creative\ Cloud\ Installer.app
 
+pretty_print "Installing Gulp, Hyperterm CLI, pnpm, and Pure theme..."
+  npm install --global gulp hpm-cli pnpm pure-prompt
+
 # when done with cask
 brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup
 
@@ -491,9 +488,19 @@ brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup
 pretty_print "Installing Mackup..."
   brew install mackup
 
-# Launch it and back up your files
-pretty_print "Running Mackup Backup...required dropbox to be setup first. Run again with $mackup backup"
-  mackup backup
+# Launch it and back up / restore your files
+echo ""
+echo "Do you want to (backup / restore) your files from Mackup? (b/r)"
+read -r response
+case $response in
+  [bB])
+    mackup backup
+    break;;
+  [rR])
+    mackup restore
+    break;;
+  *) break;;
+esac
 
 ###############################################################################
 # Transmission.app                                                            #

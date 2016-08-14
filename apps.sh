@@ -7,7 +7,9 @@ apps=(
   firefox
   google-chrome
   google-drive
+  hyperterm
   kaleidoscope
+  kitematic
   postico
   qlimagesize
   skype
