@@ -385,6 +385,9 @@ pretty_print "Installing and linking OpenSSL..."
   brew install openssl
   brew link openssl --force
 
+pretty_print "Installing htop..."
+  brew install htop
+
 # Install ruby latest version
 # ruby_version="$(curl -sSL https://raw.githubusercontent.com/IcaliaLabs/kaishi/master/latest_ruby)"
 
