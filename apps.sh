@@ -2,6 +2,7 @@
 # Apps
 apps=(
   atom
+  dash
   docker
   dropbox
   firefox
@@ -10,16 +11,20 @@ apps=(
   hyperterm
   kaleidoscope
   kitematic
+  messenger
   postico
   qlimagesize
   skype
   slack
   spotify
+  sshfs
   sublime-text
+  the-unarchiver
   tower
   transmission
   transmit
   vlc
+  whatsie
 )
 
 # Install apps to /Applications
