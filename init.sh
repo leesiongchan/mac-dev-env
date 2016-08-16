@@ -165,12 +165,12 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 # defaults write com.apple.dock show-process-indicators -bool true
 
 # Set a blazingly fast keyboard repeat rate
-# echo "\nSet a blazingly fast keyboard repeat rate"
-# defaults write NSGlobalDomain KeyRepeat -int 1
+echo "\nSet a blazingly fast keyboard repeat rate"
+defaults write NSGlobalDomain KeyRepeat -int 1
 
 # Set a shorter Delay until key repeat
-# echo "\nSet a shorter Delay until key repeat"
-# defaults write NSGlobalDomain InitialKeyRepeat -int 12
+echo "\nSet a shorter Delay until key repeat"
+defaults write NSGlobalDomain InitialKeyRepeat -int 12
 
 # Show the ~/Library folder
 # echo "\nShow the ~/Library folder"
@@ -461,7 +461,7 @@ pretty_print "Installing Node Version Manager..."
 
 # Install brew cask
 pretty_print "Installing cask to install apps"
-	brew install caskroom/cask/brew-cask
+	brew tap caskroom/cask
   brew tap caskroom/versions
 
 # pretty_print "Installing launchrocket to manage your homebrew formulas like a champ!"
@@ -478,7 +478,11 @@ pretty_print "Installing fonts..."
 #   open /opt/homebrew-cask/Caskroom/adobe-creative-cloud/latest/Creative\ Cloud\ Installer.app
 
 pretty_print "Installing Gulp, Hyperterm CLI, pnpm, and Pure theme..."
-  npm install --global gulp hpm-cli pnpm pure-prompt
+  npm install --global gulp hpm-cli pnpm pure-prompt npm-check-updates
+
+# Install Mackup
+pretty_print "Installing Mackup..."
+  brew install mackup
 
 # when done with cask
 brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup
@@ -486,10 +490,6 @@ brew update && brew upgrade brew-cask && brew cleanup && brew cask cleanup
 # iterm - copy files into ~ dir
 # pretty_print "Setup iterm..."
 #   cp {.bash_profile,.bash_prompt,.aliases} ~
-
-# Install Mackup
-pretty_print "Installing Mackup..."
-  brew install mackup
 
 # Launch it and back up / restore your files
 echo ""

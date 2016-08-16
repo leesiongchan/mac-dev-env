@@ -7,6 +7,7 @@ fonts=(
   font-m-plus
   font-clear-sans
   font-roboto
+  font-roboto-mono
   font-open-sans
   font-source-sans-pro
   font-lato
