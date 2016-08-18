@@ -4,6 +4,7 @@ apps=(
   atom
   dash
   docker
+  docker-clean
   dropbox
   firefox
   google-chrome
