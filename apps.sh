@@ -9,9 +9,10 @@ apps=(
   firefox
   google-chrome
   google-drive
-  hyperterm
+  hyper
   kaleidoscope
   kitematic
+  leech
   messenger
   postico
   qlimagesize
@@ -30,5 +31,5 @@ apps=(
 
 # Install apps to /Applications
 # Default is: /Users/$user/Applications
-echo "installing apps..."
+echo "Installing apps..."
 brew cask install --appdir="/Applications" ${apps[@]}
