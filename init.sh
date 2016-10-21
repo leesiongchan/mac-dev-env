@@ -162,6 +162,9 @@ pretty_print "Installing Watchman..."
 pretty_print "Installing Node Version Manager..."
   brew install n
 
+pretty_print "Installing Node Package Manager..."
+  brew install yarn
+
 # Install brew cask
 pretty_print "Installing cask to install apps"
 	brew tap caskroom/cask
@@ -173,8 +176,8 @@ pretty_print "Installing apps..."
 pretty_print "Installing fonts..."
   sh fonts.sh
 
-pretty_print "Installing Gulp, Hyperterm CLI, pnpm, and Pure theme..."
-  npm install --global gulp hpm-cli pnpm pure-prompt npm-check-updates
+pretty_print "Installing Gulp, Hyperterm CLI, and Pure theme..."
+  yarn global add gulp hpm-cli pure-prompt npm-check-updates
 
 # Install Mackup
 pretty_print "Installing Mackup..."
