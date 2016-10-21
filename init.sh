@@ -160,7 +160,7 @@ pretty_print "Installing Watchman..."
   brew install watchman
 
 pretty_print "Installing Node Version Manager..."
-  curl -sL https://git.io/n-install | bash -s -- -q
+  brew install n
 
 # Install brew cask
 pretty_print "Installing cask to install apps"
